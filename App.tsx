@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Platos from './pages/Platos';
 import UserContext, { UserInterface } from './helpers/UserContext';
+import Detalle from './pages/Detalle';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Login} />
             <Stack.Screen name="Platos" component={Platos} />
+            <Stack.Screen name="Detalle" component={Detalle} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
