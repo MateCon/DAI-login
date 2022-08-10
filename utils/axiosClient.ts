@@ -4,6 +4,7 @@ const axiosClient = axios.create({
     baseURL: "https://api.spoonacular.com",
 });
 
+
 export const login = async (email: string, password: string) => {
     return axios.post('http://challenge-react.alkemy.org/', { email, password })
         .then(res => {
@@ -30,7 +31,7 @@ export const getPlatos = async (query: string) => {
 
 export const getPlato = async (id: number) => {
     return axiosClient.get(
-        `/recipes/${id}/information&apiKey=${API_KEY}`
+        `/recipes/${id}/information?apiKey=${API_KEY}`
     )
         .then(res => {
             if (res.status < 300) return res.data;
