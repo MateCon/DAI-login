@@ -18,6 +18,15 @@ export default function MisPlatos({ navigation }: any) {
             </SafeAreaView>
             <View>
                 <Text>Precio: {user.platos.reduce((acc, val) => acc + val.pricePerServing, 0)}</Text>
+                <Text>Tiempo de preparación promedio: {Math.ceil(user.platos.reduce((acc, val) => acc + val.readyInMinutes, 0) / user.platos.length)} minutos</Text>
+                <Text>{((): string => {
+                    let v = 0, n = 0;
+                    for (let { vegan } of user.platos) {
+                        if (vegan) v++;
+                        else n++;
+                    }
+                    return `${v}/2 platos veganos y ${n}/2 no veganos`;
+                })()}</Text>
             </View>
         </View>
     )
