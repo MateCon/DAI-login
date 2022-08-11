@@ -11,7 +11,6 @@ export default function Detalle({ route, navigation }: any) {
     useEffect(() => {
         (async () => {
             const data = await getPlato(route.params.id);
-            console.log(data);
             setPlato(data);
         })()
     }, []);
@@ -22,13 +21,12 @@ export default function Detalle({ route, navigation }: any) {
             <Image source={{ uri: plato?.image }} style={styles.image} />
             <Text>Tiempo de preparacion: {plato?.readyInMinutes} minutos</Text>
             <Text>Precio por porción: {plato?.pricePerServing}$</Text>
-            {plato.vegano ? "Es vegano" : "No es vegano"}
+            <Text>{plato?.vegan ? "Es vegano" : "No es vegano"}</Text>
             {!user.platos.find(p => p.id === route.params.id)
                 ? <Button
                     onPress={() => {
                         let count = 0;
                         for (let { vegan } of user.platos) {
-                            console.log(vegan, plato.vegan)
                             if (vegan === plato.vegan) count++;
                         }
                         if (count >= 2)

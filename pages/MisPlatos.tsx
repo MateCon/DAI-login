@@ -16,6 +16,9 @@ export default function MisPlatos({ navigation }: any) {
                     keyExtractor={item => item.id.toString()}
                 />
             </SafeAreaView>
+            <View>
+                <Text>Precio: {user.platos.reduce((acc, val) => acc + val.pricePerServing, 0)}</Text>
+            </View>
         </View>
     )
 }
