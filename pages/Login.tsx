@@ -21,6 +21,7 @@ export default function Login({ navigation }: any) {
       if (Object.keys(newErrors).length === 0) {
         const response = await login(email, password);
         if (response) {
+          ////////
           setUser({ ...user, token: response.token });
           navigation.navigate("Platos");
         } else {
