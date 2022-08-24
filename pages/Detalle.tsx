@@ -32,12 +32,12 @@ export default function Detalle({ route, navigation }: any) {
                         if (count >= 2)
                             setError(plato.vegan ? "Ya hay dos platos veganos" : "Ya hay dos platos no veganos");
                         else 
-                            setContextState(ActionType.AddPlato, plato)
+                            setContextState({ type: ActionType.AddPlato, payload: plato })
                     }}
                     color="green"
                     title="Agregar a mis platos"
                 />
-                : <Button onPress={() => setContextState(ActionType.DelPlato, route.params.id) } color="red" title="Sacar de mis platos" />}
+                : <Button onPress={() => setContextState({ type: ActionType.DelPlato, payload: route.params.id }) } color="red" title="Sacar de mis platos" />}
             <Text style={styles.error}>{error}</Text>
         </View>
     )

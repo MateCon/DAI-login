@@ -24,15 +24,16 @@ export interface Action {
 export const reducer = (state: State = initialState, action: Action): State => {
     switch (action.type) {
         case ActionType.AddPlato:
-            return {
+            console.log(action)
+            return ({
                 ...state,
                  platos: [ ...state.platos, action.payload ]
-            }
+            })
         case ActionType.DelPlato:
-            return {
+            return ({
                 ...state,
                  platos: state.platos.filter((p: any) => p.id !== action.payload)
-            }
+            })
         case ActionType.SetToken:
             return ({
                 ...state,

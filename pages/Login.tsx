@@ -21,7 +21,7 @@ export default function Login({ navigation }: any) {
       if (Object.keys(newErrors).length === 0) {
         const response = await login(email, password);
         if (response) {
-          setContextState(ActionType.SetToken,  response.token);
+          setContextState({ type: ActionType.SetToken, payload: response.token });
           navigation.navigate("Platos");
         } else {
           setUnauthorized("User not found");
