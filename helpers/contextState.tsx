@@ -12,7 +12,8 @@ export const initialState = {
 
 export enum ActionType {
     SetToken = "SET_TOKEN",
-    SetPlatos = "SET_PLATOS"
+    AddPlato = "ADD_PLATO",
+    DelPlato = "DEL_PLATO"
 }
 
 export interface Action {
@@ -22,8 +23,16 @@ export interface Action {
 
 export const reducer = (state: State = initialState, action: Action): State => {
     switch (action.type) {
-        case ActionType.SetPlatos:
-            return state;
+        case ActionType.AddPlato:
+            return {
+                ...state,
+                 platos: [ ...state.platos, action.payload ]
+            }
+        case ActionType.DelPlato:
+            return {
+                ...state,
+                 platos: state.platos.filter((p: any) => p.id !== action.payload)
+            }
         case ActionType.SetToken:
             return ({
                 ...state,
@@ -40,8 +49,7 @@ export const initialContext = {
 }
 
 interface Props {
-    initial: State;
-    setContextState: Function;
+    initial?: State;
 }
 
 const Cont = createContext<{ contextState: State, setContextState: Function }>(initialContext);

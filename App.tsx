@@ -4,17 +4,15 @@ import Login from './pages/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Platos from './pages/Platos';
-import UserContext, { UserInterface } from './helpers/UserContext';
 import Detalle from './pages/Detalle';
 import MisPlatos from './pages/MisPlatos';
+import { ContextProvider } from './helpers/contextState';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [user, setUser] = useState<UserInterface>({ token: null, platos: [] });
-
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <ContextProvider>
       <View style={styles.container}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
@@ -25,7 +23,7 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </View>
-    </UserContext.Provider>
+    </ContextProvider>
   );
 }
 

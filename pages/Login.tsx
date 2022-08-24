@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import UserContext from "../helpers/UserContext";
+import { ActionType, useContextState } from "../helpers/contextState";
 import { login } from "../utils/axiosClient";
 
 export default function Login({ navigation }: any) {
@@ -9,7 +9,7 @@ export default function Login({ navigation }: any) {
     const [errors, setErrors] = useState<{[key: string]: string}>({});
     const [loading, setLoading] = useState(false);
     const [unauthorized, setUnauthorized] = useState("");
-    const [user, setUser] = useContext(UserContext);
+    const { contextState: user, setContextState } = useContextState();
   
     const onSubmit = async() => {
       setLoading(true);
@@ -21,8 +21,7 @@ export default function Login({ navigation }: any) {
       if (Object.keys(newErrors).length === 0) {
         const response = await login(email, password);
         if (response) {
-          ////////
-          setUser({ ...user, token: response.token });
+          setContextState(ActionType.SetToken,  response.token);
           navigation.navigate("Platos");
         } else {
           setUnauthorized("User not found");

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet, Image } from "react-native";
-import UserContext from "../helpers/UserContext";
+import { ActionType, useContextState } from "../helpers/contextState";
 import { getPlato } from "../utils/axiosClient";
 
 export default function Detalle({ route, navigation }: any) {
     const [plato, setPlato] = useState<any | null>();
-    const [user, setUser] = useContext(UserContext);
     const [error, setError] = useState("");
+    const { contextState: user, setContextState } = useContextState();
 
     useEffect(() => {
         (async () => {
@@ -22,7 +22,7 @@ export default function Detalle({ route, navigation }: any) {
             <Text>Tiempo de preparacion: {plato?.readyInMinutes} minutos</Text>
             <Text>Precio por porción: {plato?.pricePerServing}$</Text>
             <Text>{plato?.vegan ? "Es vegano" : "No es vegano"}</Text>
-            {!user.platos.find(p => p.id === route.params.id)
+            {!user.platos.find((p: any) => p.id === route.params.id)
                 ? <Button
                     onPress={() => {
                         let count = 0;
@@ -32,12 +32,12 @@ export default function Detalle({ route, navigation }: any) {
                         if (count >= 2)
                             setError(plato.vegan ? "Ya hay dos platos veganos" : "Ya hay dos platos no veganos");
                         else 
-                            setUser({ ...user, platos: [ ...user?.platos, plato ]})
+                            setContextState(ActionType.AddPlato, plato)
                     }}
                     color="green"
                     title="Agregar a mis platos"
                 />
-                : <Button onPress={() => setUser({ ...user, platos: user.platos.filter(p => p.id !== route.params.id)}) } color="red" title="Sacar de mis platos" />}
+                : <Button onPress={() => setContextState(ActionType.DelPlato, route.params.id) } color="red" title="Sacar de mis platos" />}
             <Text style={styles.error}>{error}</Text>
         </View>
     )
