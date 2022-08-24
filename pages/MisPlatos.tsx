@@ -12,12 +12,13 @@ export default function MisPlatos({ navigation }: any) {
             <SafeAreaView>
                 <FlatList
                     data={platos}
-                    renderItem={(data) => <PlatoListItem {...data.item} navigation={navigation} />}
+                    renderItem={(data) => <PlatoListItem {...data.item} navigation={navigation} />} 
                     keyExtractor={item => item.id.toString()}
                 />
             </SafeAreaView>
             <View>
                 <Text>Precio: {platos.reduce((acc, val) => acc + val.pricePerServing, 0)}</Text>
+                <Text>Promedio de HealthScore: {Math.ceil(platos.reduce((acc, val) => acc + val.healthScore, 0) / platos.length) | 0}%</Text>
                 <Text>Tiempo de preparación promedio: {Math.ceil(platos.reduce((acc, val) => acc + val.readyInMinutes, 0) / platos.length) | 0} minutos</Text>
                 <Text>{((): string => {
                     let v = 0, n = 0;
