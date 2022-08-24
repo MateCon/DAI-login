@@ -27,12 +27,12 @@ export const reducer = (state: State = initialState, action: Action): State => {
             console.log(action)
             return ({
                 ...state,
-                 platos: [ ...state.platos, action.payload ]
+                platos: [ ...state.platos, action.payload ]
             })
         case ActionType.DelPlato:
             return ({
                 ...state,
-                 platos: state.platos.filter((p: any) => p.id !== action.payload)
+                platos: state.platos.filter((p: any) => p.id !== action.payload)
             })
         case ActionType.SetToken:
             return ({
